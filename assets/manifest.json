@@ -1,0 +1,12 @@
+{
+  "assetRoot": "assets",
+  "totalSize": 615988,
+  "assets": {
+    "image": {
+      "phaser_logo": { "file": "phaser_logo.png", "size": 377788 },
+      "plansza_start": { "file": "plansza_start.png", "size": 238200 },
+      "button_dalej": { "file": "Button_dalej.png", "size": 6981 },
+      "button_sound": { "file": "button_sound.png", "size": 1401 }
+    }
+  }
+}
