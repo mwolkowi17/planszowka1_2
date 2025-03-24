@@ -5,8 +5,15 @@
     "image": {
       "phaser_logo": { "file": "phaser_logo.png", "size": 377788 },
       "plansza_start": { "file": "plansza_start.png", "size": 238200 },
+      "plansza_scena1": { "file": "plansza2.png", "size": 176843 },
       "button_dalej": { "file": "Button_dalej.png", "size": 6981 },
-      "button_sound": { "file": "button_sound.png", "size": 1401 }
+      "button_sound": { "file": "button_sound.png", "size": 1401 },
+      "button_z_komputerem": {
+        "file": "przycisk_gra_z_komputerem.png",
+        "size": 5996
+      },
+      "imie_gracza_1": { "file": "imie_gracza1.png", "size": 9019 },
+      "imie_gracza_2": { "file": "imie_gracza2.png", "size": 9894 }
     }
   }
 }

@@ -43,7 +43,8 @@ export class Scene2 extends Scene {
     myEventPoinerOverOut(this.przycisk_start);
 
     const a = "Marcin";
-    console.log(localStorage.getItem("player"));
+    console.log(localStorage.getItem("player1"));
+    console.log(localStorage.getItem("player2"));
 
     // this.przycisk_start.on("pointerdown", () => {
     //   //this.scene.start("GameScene1");
