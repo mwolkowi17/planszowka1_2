@@ -47,8 +47,7 @@ export class GameStart extends Scene {
     myEventPoinerOverOut(this.przycisk_sound);
 
     this.przycisk_start.on("pointerdown", () => {
-      //this.scene.start("GameScene1");
-      console.log("new scene");
+      this.scene.start("GameScene1");
       document.body.style.cursor = "initial";
     });
 

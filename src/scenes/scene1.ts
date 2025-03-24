@@ -15,17 +15,6 @@ export class Scene1 extends Scene {
       .setInteractive();
 
     this.przycisk_start.scale = 0.5;
-    const el = document.createElement("input");
-    // const stage = document.querySelector("div");
-    const stage = document.getElementById("inner_cont");
-    stage.appendChild(el);
-    el.textContent = "Wpisz coś";
-    el.style.height = "30px";
-    el.style.width = "100px";
-    el.style.position = "absolute";
-    el.style.zIndex = "2";
-    el.style.left = "45%";
-    el.style.bottom = "30%";
 
     //function for event mouse handlin
 
@@ -42,14 +31,7 @@ export class Scene1 extends Scene {
     }
     myEventPoinerOverOut(this.przycisk_start);
 
-    const a = "Marcin";
-
     this.przycisk_start.on("pointerdown", () => {
-      //this.scene.start("GameScene1");
-      localStorage.setItem("player", el.value);
-
-      console.log(localStorage.getItem("player"));
-      stage.removeChild(el);
       this.scene.start("GameScene2");
       document.body.style.cursor = "initial";
     });
