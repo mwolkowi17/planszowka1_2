@@ -3,6 +3,7 @@ import { Scene } from "phaser";
 export class Scene1 extends Scene {
   przycisk_start: Phaser.GameObjects.Image;
   przycisk_gra_z_komputerem: Phaser.GameObjects.Image;
+  przycisk_gra_z_komputerem_zazn: Phaser.GameObjects.Image;
   sound1: Phaser.GameObjects.Image;
   sound2: Phaser.GameObjects.Image;
   name_input1: any;
@@ -44,6 +45,12 @@ export class Scene1 extends Scene {
 
     this.przycisk_gra_z_komputerem.scale = 0.7;
 
+    this.przycisk_gra_z_komputerem_zazn = this.add
+      .image(640, 420, "button_z_komputerem_zazn")
+      .setInteractive()
+      .setAlpha(0);
+    this.przycisk_gra_z_komputerem_zazn.scale = 0.7;
+
     //sound add
     this.Instruction_Sound_1 = this.sound.add("sample", { loop: false });
 
@@ -68,16 +75,19 @@ export class Scene1 extends Scene {
       stage.appendChild(el);
       el.textContent = "Wpisz coś";
       el.style.height = "30px";
-      el.style.width = "100px";
+      el.style.width = "150px";
       el.style.position = "absolute";
       el.style.zIndex = "2";
+      el.style.border = "3px solid red";
+      el.style.borderRadius = "4px";
       el.style.left = left_pos; //np "45%"
       el.style.bottom = bottom_pos; //np "30%"
       return el;
     }
 
-    this.name_input1 = create_input("24%", "58%");
-    this.name_input2 = create_input("68%", "58%");
+    this.name_input1 = create_input("22%", "58%");
+    this.name_input2 = create_input("66%", "58%");
+
     //function for event mouse handlin
 
     function myEventPoinerOverOut(button: any) {
@@ -93,8 +103,11 @@ export class Scene1 extends Scene {
     }
     myEventPoinerOverOut(this.przycisk_start);
     myEventPoinerOverOut(this.przycisk_gra_z_komputerem);
+    myEventPoinerOverOut(this.przycisk_gra_z_komputerem_zazn);
     myEventPoinerOverOut(this.sound1);
     myEventPoinerOverOut(this.sound2);
+
+    //button click event handling
 
     this.przycisk_start.on("pointerdown", () => {
       localStorage.setItem("player1", this.name_input1.value);
@@ -108,8 +121,21 @@ export class Scene1 extends Scene {
 
     this.przycisk_gra_z_komputerem.on("pointerdown", () => {
       this.name_input2.style.visibility = "hidden";
-      this.name_input2_opis.destroy();
-      this.sound2.destroy();
+      this.name_input2_opis.setAlpha(0);
+      this.sound2.setAlpha(0);
+      // this.name_input2_opis.destroy();
+      // this.sound2.destroy();
+      // this.przycisk_gra_z_komputerem.destroy();
+      this.przycisk_gra_z_komputerem.setAlpha(0);
+      this.przycisk_gra_z_komputerem_zazn.setAlpha(1);
+    });
+
+    this.przycisk_gra_z_komputerem_zazn.on("pointerdown", () => {
+      this.przycisk_gra_z_komputerem_zazn.setAlpha(0);
+      this.przycisk_gra_z_komputerem.setAlpha(1);
+      this.name_input2.style.visibility = "visible";
+      this.name_input2_opis.setAlpha(1);
+      this.sound2.setAlpha(1);
     });
   }
 }

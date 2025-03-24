@@ -12,6 +12,10 @@
         "file": "przycisk_gra_z_komputerem.png",
         "size": 5996
       },
+      "button_z_komputerem_zazn": {
+        "file": "przycisk_gra_z_komputerem_zazn.png",
+        "size": 6265
+      },
       "imie_gracza_1": { "file": "imie_gracza1.png", "size": 9019 },
       "imie_gracza_2": { "file": "imie_gracza2.png", "size": 9894 }
     }
