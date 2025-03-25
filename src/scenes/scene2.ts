@@ -1,7 +1,7 @@
 import { Scene } from "phaser";
 
 export class Scene2 extends Scene {
-  przycisk_start: Phaser.GameObjects.Image;
+  przycisk_rzut_kostka: Phaser.GameObjects.Image;
   constructor() {
     super({
       key: "GameScene2",
@@ -9,12 +9,12 @@ export class Scene2 extends Scene {
   }
   create(): void {
     //adding assets to stage
-    this.add.image(640, 360, "plansza_start").scale = 0.7;
-    this.przycisk_start = this.add
-      .image(640, 560, "button_dalej")
+    this.add.image(640, 360, "plansza_scena2").scale = 0.67;
+    this.przycisk_rzut_kostka = this.add
+      .image(1153, 435, "button_rzut")
       .setInteractive();
 
-    this.przycisk_start.scale = 0.5;
+    this.przycisk_rzut_kostka.scale = 0.67;
     const el = document.createElement("input");
     // const stage = document.querySelector("div");
     // const stage = document.getElementById("inner_cont");
@@ -40,7 +40,7 @@ export class Scene2 extends Scene {
         document.body.style.cursor = "initial";
       });
     }
-    myEventPoinerOverOut(this.przycisk_start);
+    myEventPoinerOverOut(this.przycisk_rzut_kostka);
 
     const a = "Marcin";
     console.log(localStorage.getItem("player1"));

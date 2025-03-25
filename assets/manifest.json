@@ -17,7 +17,9 @@
         "size": 6265
       },
       "imie_gracza_1": { "file": "imie_gracza1.png", "size": 9019 },
-      "imie_gracza_2": { "file": "imie_gracza2.png", "size": 9894 }
+      "imie_gracza_2": { "file": "imie_gracza2.png", "size": 9894 },
+      "plansza_scena2": { "file": "plansza3.png", "size": 528148 },
+      "button_rzut": { "file": "Button_rzut.png", "size": 5402 }
     }
   }
 }
