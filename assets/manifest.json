@@ -1,6 +1,6 @@
 {
   "assetRoot": "assets",
-  "totalSize": 615988,
+  "totalSize": 1382581,
   "assets": {
     "image": {
       "phaser_logo": { "file": "phaser_logo.png", "size": 377788 },
@@ -22,7 +22,13 @@
       "button_rzut": { "file": "Button_rzut.png", "size": 5402 },
       "postac1": { "file": "postac1.png", "size": 5818 },
       "postac2": { "file": "postac2.png", "size": 5202 },
-      "kostka1": { "file": "kostka1.png", "size": 5624 }
+      "kostka1": { "file": "kostka1.png", "size": 5624 },
+      "kostka_wyniki1": { "file": "kostka_wynik1.png", "size": 4033 },
+      "kostka_wyniki2": { "file": "kostka_wynik2.png", "size": 4231 },
+      "kostka_wyniki3": { "file": "kostka_wynik3.png", "size": 5624 },
+      "kostka_wyniki4": { "file": "kostka_wynik4.png", "size": 4402 },
+      "kostka_wyniki5": { "file": "kostka_wynik5.png", "size": 4913 },
+      "kostka_wyniki6": { "file": "kostka_wynik6.png", "size": 4481 }
     }
   }
 }

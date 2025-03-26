@@ -7,6 +7,13 @@ export class Scene2 extends Scene {
   kostka: Phaser.GameObjects.Image;
   gracz1_name: Phaser.GameObjects.Text;
   gracz2_name: Phaser.GameObjects.Text;
+  kostka_wynik1: Phaser.GameObjects.Image;
+  kostka_wynik2: Phaser.GameObjects.Image;
+  kostka_wynik3: Phaser.GameObjects.Image;
+  kostka_wynik4: Phaser.GameObjects.Image;
+  kostka_wynik5: Phaser.GameObjects.Image;
+  kostka_wynik6: Phaser.GameObjects.Image;
+
   constructor() {
     super({
       key: "GameScene2",
@@ -29,7 +36,7 @@ export class Scene2 extends Scene {
     this.postac2.scale = 0.7;
     this.postac2.rotation = Math.PI * 1.2;
 
-    this.kostka = this.add.image(1153, 534, "kostka1");
+    this.kostka = this.add.image(1153, 534, "kostka1").setAlpha();
     this.kostka.scale = 0.7;
     let nameA = localStorage.getItem("player2");
     if (localStorage.getItem("player2") === "") {
@@ -50,10 +57,49 @@ export class Scene2 extends Scene {
       fontStyle: "bold",
       color: "black",
     });
-    // this.gracz1_name.style.fontSize = "50";
-    // this.gracz1_name.style.color = "black";
 
-    //function for event mouse handlin
+    //kostki do rzutu
+
+    this.kostka_wynik1 = this.add
+      .image(1153, 534, "kostka_wyniki1")
+      .setAlpha(0);
+    this.kostka_wynik1.scale = 0.7;
+
+    this.kostka_wynik2 = this.add
+      .image(1153, 534, "kostka_wyniki2")
+      .setAlpha(0);
+    this.kostka_wynik2.scale = 0.7;
+
+    this.kostka_wynik3 = this.add
+      .image(1153, 534, "kostka_wyniki3")
+      .setAlpha(0);
+    this.kostka_wynik3.scale = 0.7;
+
+    this.kostka_wynik4 = this.add
+      .image(1153, 534, "kostka_wyniki4")
+      .setAlpha(0);
+    this.kostka_wynik4.scale = 0.7;
+
+    this.kostka_wynik5 = this.add
+      .image(1153, 534, "kostka_wyniki5")
+      .setAlpha(0);
+    this.kostka_wynik5.scale = 0.7;
+
+    this.kostka_wynik6 = this.add
+      .image(1153, 534, "kostka_wyniki6")
+      .setAlpha(0);
+    this.kostka_wynik6.scale = 0.7;
+
+    function zerownie_kostek() {
+      this.kostka_wynik1.setAlpha(0);
+      this.kostka_wynik2.setAlpha(0);
+      this.kostka_wynik3.setAlpha(0);
+      this.kostka_wynik4.setAlpha(0);
+      this.kostka_wynik5.setAlpha(0);
+      this.kostka_wynik6.setAlpha(0);
+    }
+
+    //function for event mouse handling
 
     function myEventPoinerOverOut(button: any) {
       button.on("pointerover", function (event) {
@@ -68,16 +114,70 @@ export class Scene2 extends Scene {
     }
     myEventPoinerOverOut(this.przycisk_rzut_kostka);
 
-    const a = "Marcin";
-    console.log(localStorage.getItem("player1"));
-    console.log(localStorage.getItem("player2"));
+    // console.log(localStorage.getItem("player1"));
+    // console.log(localStorage.getItem("player2"));
 
-    // this.przycisk_start.on("pointerdown", () => {
-    //   //this.scene.start("GameScene1");
-    //   localStorage.setItem("player", el.value);
+    //Random from 6 function
 
-    //   console.log(localStorage.getItem("player"));
-    //   document.body.style.cursor = "initial";
-    // });
+    function rzucaj(): integer {
+      let wynik;
+      wynik = Math.floor(Math.random() * 6);
+      return wynik;
+    }
+
+    this.przycisk_rzut_kostka.on("pointerdown", () => {
+      this.kostka.setAlpha(0);
+      console.log("rzut kostką:");
+      let wynik_rzutu = rzucaj();
+      console.log(wynik_rzutu);
+      if (wynik_rzutu === 0) {
+        this.kostka_wynik1.setAlpha(1);
+        this.kostka_wynik2.setAlpha(0);
+        this.kostka_wynik3.setAlpha(0);
+        this.kostka_wynik4.setAlpha(0);
+        this.kostka_wynik5.setAlpha(0);
+        this.kostka_wynik6.setAlpha(0);
+      }
+      if (wynik_rzutu === 1) {
+        this.kostka_wynik2.setAlpha(1);
+        this.kostka_wynik1.setAlpha(0);
+        this.kostka_wynik3.setAlpha(0);
+        this.kostka_wynik4.setAlpha(0);
+        this.kostka_wynik5.setAlpha(0);
+        this.kostka_wynik6.setAlpha(0);
+      }
+      if (wynik_rzutu === 2) {
+        this.kostka_wynik3.setAlpha(1);
+        this.kostka_wynik2.setAlpha(0);
+        this.kostka_wynik1.setAlpha(0);
+        this.kostka_wynik4.setAlpha(0);
+        this.kostka_wynik5.setAlpha(0);
+        this.kostka_wynik6.setAlpha(0);
+      }
+      if (wynik_rzutu === 3) {
+        this.kostka_wynik4.setAlpha(1);
+        this.kostka_wynik2.setAlpha(0);
+        this.kostka_wynik3.setAlpha(0);
+        this.kostka_wynik1.setAlpha(0);
+        this.kostka_wynik5.setAlpha(0);
+        this.kostka_wynik6.setAlpha(0);
+      }
+      if (wynik_rzutu === 4) {
+        this.kostka_wynik5.setAlpha(1);
+        this.kostka_wynik2.setAlpha(0);
+        this.kostka_wynik3.setAlpha(0);
+        this.kostka_wynik4.setAlpha(0);
+        this.kostka_wynik1.setAlpha(0);
+        this.kostka_wynik6.setAlpha(0);
+      }
+      if (wynik_rzutu === 5) {
+        this.kostka_wynik6.setAlpha(1);
+        this.kostka_wynik2.setAlpha(0);
+        this.kostka_wynik3.setAlpha(0);
+        this.kostka_wynik4.setAlpha(0);
+        this.kostka_wynik5.setAlpha(0);
+        this.kostka_wynik1.setAlpha(0);
+      }
+    });
   }
 }
