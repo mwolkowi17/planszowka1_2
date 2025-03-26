@@ -147,54 +147,6 @@ export class Scene2 extends Scene {
       console.log(wynik_rzutu);
       // tutaj zamiast tego wyżej powinna być funkcja iterująca się przez to
       pokaz_kostke(wynik_rzutu);
-      // if (wynik_rzutu === 0) {
-      //   this.kostka_wynik1.setAlpha(1);
-      //   this.kostka_wynik2.setAlpha(0);
-      //   this.kostka_wynik3.setAlpha(0);
-      //   this.kostka_wynik4.setAlpha(0);
-      //   this.kostka_wynik5.setAlpha(0);
-      //   this.kostka_wynik6.setAlpha(0);
-      // }
-      // if (wynik_rzutu === 1) {
-      //   this.kostka_wynik2.setAlpha(1);
-      //   this.kostka_wynik1.setAlpha(0);
-      //   this.kostka_wynik3.setAlpha(0);
-      //   this.kostka_wynik4.setAlpha(0);
-      //   this.kostka_wynik5.setAlpha(0);
-      //   this.kostka_wynik6.setAlpha(0);
-      // }
-      // if (wynik_rzutu === 2) {
-      //   this.kostka_wynik3.setAlpha(1);
-      //   this.kostka_wynik2.setAlpha(0);
-      //   this.kostka_wynik1.setAlpha(0);
-      //   this.kostka_wynik4.setAlpha(0);
-      //   this.kostka_wynik5.setAlpha(0);
-      //   this.kostka_wynik6.setAlpha(0);
-      // }
-      // if (wynik_rzutu === 3) {
-      //   this.kostka_wynik4.setAlpha(1);
-      //   this.kostka_wynik2.setAlpha(0);
-      //   this.kostka_wynik3.setAlpha(0);
-      //   this.kostka_wynik1.setAlpha(0);
-      //   this.kostka_wynik5.setAlpha(0);
-      //   this.kostka_wynik6.setAlpha(0);
-      // }
-      // if (wynik_rzutu === 4) {
-      //   this.kostka_wynik5.setAlpha(1);
-      //   this.kostka_wynik2.setAlpha(0);
-      //   this.kostka_wynik3.setAlpha(0);
-      //   this.kostka_wynik4.setAlpha(0);
-      //   this.kostka_wynik1.setAlpha(0);
-      //   this.kostka_wynik6.setAlpha(0);
-      // }
-      // if (wynik_rzutu === 5) {
-      //   this.kostka_wynik6.setAlpha(1);
-      //   this.kostka_wynik2.setAlpha(0);
-      //   this.kostka_wynik3.setAlpha(0);
-      //   this.kostka_wynik4.setAlpha(0);
-      //   this.kostka_wynik5.setAlpha(0);
-      //   this.kostka_wynik1.setAlpha(0);
-      // }
     });
   }
 }
