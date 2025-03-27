@@ -29,6 +29,7 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka.scale = 0.67;
 
     this.postac1 = this.add.image(100, 130, "postac1");
+    //this.postac1 = this.add.image(180, 560, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
 
@@ -132,6 +133,17 @@ export class Scene2 extends Scene {
     // console.log(localStorage.getItem("player1"));
     // console.log(localStorage.getItem("player2"));
 
+    //colection of coordinate the player1
+
+    const pozycje_pionka_gracza1 = [
+      [150, 130],
+      [250, 170],
+      [240, 300],
+      [180, 380],
+      [130, 460],
+      [180, 560],
+    ];
+
     //Random from 6 function
 
     function rzucaj(): integer {
@@ -147,6 +159,10 @@ export class Scene2 extends Scene {
       console.log(wynik_rzutu);
       // tutaj zamiast tego wyżej powinna być funkcja iterująca się przez to
       pokaz_kostke(wynik_rzutu);
+      this.postac1.setPosition(
+        pozycje_pionka_gracza1[wynik_rzutu][0],
+        pozycje_pionka_gracza1[wynik_rzutu][1]
+      );
     });
   }
 }
