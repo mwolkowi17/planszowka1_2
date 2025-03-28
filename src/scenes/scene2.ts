@@ -14,6 +14,7 @@ export class Scene2 extends Scene {
   kostka_wynik4: Phaser.GameObjects.Image;
   kostka_wynik5: Phaser.GameObjects.Image;
   kostka_wynik6: Phaser.GameObjects.Image;
+  krok_gracz1_na_planszy: any;
 
   constructor() {
     super({
@@ -30,7 +31,7 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka.scale = 0.67;
 
     this.postac1 = this.add.image(100, 130, "postac1");
-    //this.postac1 = this.add.image(180, 560, "postac1");
+    //this.postac1 = this.add.image(900, 590, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
 
@@ -134,18 +135,11 @@ export class Scene2 extends Scene {
     // console.log(localStorage.getItem("player1"));
     // console.log(localStorage.getItem("player2"));
 
-    //colection of coordinate the player1
-
-    // const pozycje_pionka_gracza1 = [
-    //   [150, 130],
-    //   [250, 170],
-    //   [240, 300],
-    //   [180, 380],
-    //   [130, 460],
-    //   [180, 560],
-    // ];
+    //colection of coordinate the player1's pawn
 
     const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
+
+    this.krok_gracz1_na_planszy = 0;
 
     //Random from 6 function
 
@@ -163,9 +157,10 @@ export class Scene2 extends Scene {
       // tutaj zamiast tego wyżej powinna być funkcja iterująca się przez to
       pokaz_kostke(wynik_rzutu);
       this.postac1.setPosition(
-        pozycje_pionka_gracza1[wynik_rzutu][0],
-        pozycje_pionka_gracza1[wynik_rzutu][1]
+        pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][0],
+        pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
       );
+      this.krok_gracz1_na_planszy = this.krok_gracz1_na_planszy + wynik_rzutu;
     });
   }
 }
