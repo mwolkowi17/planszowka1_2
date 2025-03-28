@@ -31,7 +31,7 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka.scale = 0.67;
 
     this.postac1 = this.add.image(100, 130, "postac1");
-    //this.postac1 = this.add.image(900, 590, "postac1");
+    //this.postac1 = this.add.image(500, 510, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
 
@@ -148,6 +148,7 @@ export class Scene2 extends Scene {
       wynik = Math.floor(Math.random() * 6);
       return wynik;
     }
+    let kontrolka_ruch_na_planszy = true;
 
     this.przycisk_rzut_kostka.on("pointerdown", () => {
       this.kostka.setAlpha(0);
@@ -156,11 +157,23 @@ export class Scene2 extends Scene {
       console.log(wynik_rzutu);
       // tutaj zamiast tego wyżej powinna być funkcja iterująca się przez to
       pokaz_kostke(wynik_rzutu);
-      this.postac1.setPosition(
-        pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][0],
-        pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
-      );
-      this.krok_gracz1_na_planszy = this.krok_gracz1_na_planszy + wynik_rzutu;
+
+      if (
+        this.krok_gracz1_na_planszy + wynik_rzutu < 23 &&
+        kontrolka_ruch_na_planszy === true
+      ) {
+        this.postac1.setPosition(
+          pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][0],
+          pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
+        );
+        this.krok_gracz1_na_planszy =
+          this.krok_gracz1_na_planszy + wynik_rzutu + 1;
+        console.log("krok na planszy: " + this.krok_gracz1_na_planszy);
+      } else {
+        this.postac1.setPosition(860, 510);
+        kontrolka_ruch_na_planszy = false;
+        console.log("wygrałeś!!!");
+      }
     });
   }
 }
