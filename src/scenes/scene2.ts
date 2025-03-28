@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import { PawnMaps } from "../lib/pawn-maps";
 
 export class Scene2 extends Scene {
   przycisk_rzut_kostka: Phaser.GameObjects.Image;
@@ -135,14 +136,16 @@ export class Scene2 extends Scene {
 
     //colection of coordinate the player1
 
-    const pozycje_pionka_gracza1 = [
-      [150, 130],
-      [250, 170],
-      [240, 300],
-      [180, 380],
-      [130, 460],
-      [180, 560],
-    ];
+    // const pozycje_pionka_gracza1 = [
+    //   [150, 130],
+    //   [250, 170],
+    //   [240, 300],
+    //   [180, 380],
+    //   [130, 460],
+    //   [180, 560],
+    // ];
+
+    const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
 
     //Random from 6 function
 
