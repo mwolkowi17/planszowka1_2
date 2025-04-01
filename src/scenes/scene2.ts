@@ -15,6 +15,7 @@ export class Scene2 extends Scene {
   kostka_wynik5: Phaser.GameObjects.Image;
   kostka_wynik6: Phaser.GameObjects.Image;
   krok_gracz1_na_planszy: any;
+  krok_gracz2_na_planszy: any;
 
   constructor() {
     super({
@@ -37,6 +38,7 @@ export class Scene2 extends Scene {
 
     //pionek2
     this.postac2 = this.add.image(110, 180, "postac2");
+    //this.postac2 = this.add.image(850, 520, "postac2");
     this.postac2.scale = 0.7;
     this.postac2.rotation = Math.PI * 1.2;
 
@@ -148,8 +150,14 @@ export class Scene2 extends Scene {
     //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
     const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
 
+    //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
+    const pozycje_pionka_gracza2 = new PawnMaps().pionek_gracza2;
+
     //pozycja startowa gracza nr 1
     this.krok_gracz1_na_planszy = 0;
+
+    //pozycja startowa gracza nr 2;
+    this.krok_gracz2_na_planszy = 0;
 
     //funkcja zwracająca jedną liczbę - odpwiednik rzutu kostką, główny mechanizm losujący wynik kostki w scenie
 
@@ -165,6 +173,9 @@ export class Scene2 extends Scene {
 
     //flaga true/false pokazująca czy gracz nr 1 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy = true;
+
+    //flaga true/false pokazująca czy gracz nr 2 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
+    let kontrolka_ruch_na_planszy_gracz2 = true;
 
     this.przycisk_rzut_kostka.on("pointerdown", () => {
       //"wyłączenie" kostki początkowej
@@ -198,9 +209,30 @@ export class Scene2 extends Scene {
           console.log("wygrałeś!!!");
         }
       }
+      if (ruch_gracza_nr2 === true) {
+        console.log("Ruch gracza nr2");
+        if (
+          this.krok_gracz2_na_planszy + wynik_rzutu < 23 &&
+          kontrolka_ruch_na_planszy_gracz2 === true
+        ) {
+          this.postac2.setPosition(
+            pozycje_pionka_gracza2[
+              this.krok_gracz2_na_planszy + wynik_rzutu
+            ][0],
+            pozycje_pionka_gracza2[this.krok_gracz2_na_planszy + wynik_rzutu][1]
+          );
+          this.krok_gracz2_na_planszy =
+            this.krok_gracz2_na_planszy + wynik_rzutu + 1;
+          console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
+        } else {
+          this.postac2.setPosition(860, 510);
+          kontrolka_ruch_na_planszy_gracz2 = false;
+          console.log("nr 2 - wygrałeś!!!");
+        }
+      }
       ruch_gracza_nr1 = !ruch_gracza_nr1;
       ruch_gracza_nr2 = !ruch_gracza_nr2;
-      console.log(ruch_gracza_nr2);
+      //console.log(ruch_gracza_nr2);
     });
   }
 }
