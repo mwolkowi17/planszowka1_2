@@ -221,9 +221,43 @@ export class Scene2 extends Scene {
 
       this.przycisk_rzut_kostka.setAlpha(0);
       this.przycisk_rzut_kostka_gracz2.setAlpha(1);
+
+      if (localStorage.getItem("player2") === "") {
+        this.przycisk_rzut_kostka_gracz2.setAlpha(0);
+
+        setTimeout(() => {
+          console.log("Ruch gracza nr2");
+
+          wynik_rzutu = rzucaj();
+          //wyświetlenie wyrzuconego wyniku na kostce (line 115)
+          pokaz_kostke(wynik_rzutu);
+
+          if (
+            this.krok_gracz2_na_planszy + wynik_rzutu < 23 &&
+            kontrolka_ruch_na_planszy_gracz2 === true
+          ) {
+            this.postac2.setPosition(
+              pozycje_pionka_gracza2[
+                this.krok_gracz2_na_planszy + wynik_rzutu
+              ][0],
+              pozycje_pionka_gracza2[
+                this.krok_gracz2_na_planszy + wynik_rzutu
+              ][1]
+            );
+            this.krok_gracz2_na_planszy =
+              this.krok_gracz2_na_planszy + wynik_rzutu + 1;
+            console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
+          } else {
+            this.postac2.setPosition(860, 510);
+            kontrolka_ruch_na_planszy_gracz2 = false;
+            console.log("nr 2 - wygrałeś!!!");
+          }
+          this.przycisk_rzut_kostka.setAlpha(1);
+        }, 2000);
+      }
     });
 
-    //przycisk_rzut_gracz2_event
+    //przycisk_rzut_gracz2_event==================
     this.przycisk_rzut_kostka_gracz2.on("pointerdown", () => {
       //"wyłączenie" kostki początkowej
       this.kostka.setAlpha(0);
