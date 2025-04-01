@@ -3,6 +3,7 @@ import { PawnMaps } from "../lib/pawn-maps";
 
 export class Scene2 extends Scene {
   przycisk_rzut_kostka: Phaser.GameObjects.Image;
+  przycisk_rzut_kostka_gracz2: Phaser.GameObjects.Image;
   postac1: Phaser.GameObjects.Image;
   postac2: Phaser.GameObjects.Image;
   kostka: Phaser.GameObjects.Image;
@@ -26,10 +27,19 @@ export class Scene2 extends Scene {
     //adding assets to stage
     this.add.image(640, 360, "plansza_scena2").scale = 0.67;
 
+    //przyscisk rzut koską gracz1
     this.przycisk_rzut_kostka = this.add
       .image(1153, 435, "button_rzut")
-      .setInteractive();
+      .setInteractive()
+      .setAlpha(1);
     this.przycisk_rzut_kostka.scale = 0.67;
+
+    //przycisk rzut kostką gracz2
+    this.przycisk_rzut_kostka_gracz2 = this.add
+      .image(1153, 435, "button_rzut")
+      .setInteractive()
+      .setAlpha(0);
+    this.przycisk_rzut_kostka_gracz2.scale = 0.67;
 
     //pionek1
     this.postac1 = this.add.image(100, 130, "postac1");
@@ -43,7 +53,7 @@ export class Scene2 extends Scene {
     this.postac2.rotation = Math.PI * 1.2;
 
     //"startowy" widok kostki
-    this.kostka = this.add.image(1153, 534, "kostka1").setAlpha();
+    this.kostka = this.add.image(1153, 534, "kostka_blank").setAlpha();
     this.kostka.scale = 0.7;
 
     //imiona graczy
@@ -146,6 +156,7 @@ export class Scene2 extends Scene {
       });
     }
     myEventPoinerOverOut(this.przycisk_rzut_kostka);
+    myEventPoinerOverOut(this.przycisk_rzut_kostka_gracz2);
 
     //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
     const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
@@ -177,10 +188,12 @@ export class Scene2 extends Scene {
     //flaga true/false pokazująca czy gracz nr 2 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy_gracz2 = true;
 
+    //przycisk_rzut_event
     this.przycisk_rzut_kostka.on("pointerdown", () => {
       //"wyłączenie" kostki początkowej
       this.kostka.setAlpha(0);
       console.log("rzut kostką:");
+
       //uruchomienie mechanizmu losującego (line 156)
       let wynik_rzutu = rzucaj();
       console.log(wynik_rzutu);
@@ -189,50 +202,60 @@ export class Scene2 extends Scene {
       pokaz_kostke(wynik_rzutu);
 
       //wyświetlenie pozycji pionka gracza nr 1 po rzucie pod warunkiem, że jego kolej
-      if (ruch_gracza_nr1 === true) {
-        if (
-          this.krok_gracz1_na_planszy + wynik_rzutu < 23 &&
-          kontrolka_ruch_na_planszy === true
-        ) {
-          this.postac1.setPosition(
-            pozycje_pionka_gracza1[
-              this.krok_gracz1_na_planszy + wynik_rzutu
-            ][0],
-            pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
-          );
-          this.krok_gracz1_na_planszy =
-            this.krok_gracz1_na_planszy + wynik_rzutu + 1;
-          console.log("krok na planszy: " + this.krok_gracz1_na_planszy);
-        } else {
-          this.postac1.setPosition(860, 510);
-          kontrolka_ruch_na_planszy = false;
-          console.log("wygrałeś!!!");
-        }
+      if (
+        this.krok_gracz1_na_planszy + wynik_rzutu < 23 &&
+        kontrolka_ruch_na_planszy === true
+      ) {
+        this.postac1.setPosition(
+          pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][0],
+          pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
+        );
+        this.krok_gracz1_na_planszy =
+          this.krok_gracz1_na_planszy + wynik_rzutu + 1;
+        console.log("krok na planszy: " + this.krok_gracz1_na_planszy);
+      } else {
+        this.postac1.setPosition(860, 510);
+        kontrolka_ruch_na_planszy = false;
+        console.log("wygrałeś!!!");
       }
-      if (ruch_gracza_nr2 === true) {
-        console.log("Ruch gracza nr2");
-        if (
-          this.krok_gracz2_na_planszy + wynik_rzutu < 23 &&
-          kontrolka_ruch_na_planszy_gracz2 === true
-        ) {
-          this.postac2.setPosition(
-            pozycje_pionka_gracza2[
-              this.krok_gracz2_na_planszy + wynik_rzutu
-            ][0],
-            pozycje_pionka_gracza2[this.krok_gracz2_na_planszy + wynik_rzutu][1]
-          );
-          this.krok_gracz2_na_planszy =
-            this.krok_gracz2_na_planszy + wynik_rzutu + 1;
-          console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
-        } else {
-          this.postac2.setPosition(860, 510);
-          kontrolka_ruch_na_planszy_gracz2 = false;
-          console.log("nr 2 - wygrałeś!!!");
-        }
+
+      this.przycisk_rzut_kostka.setAlpha(0);
+      this.przycisk_rzut_kostka_gracz2.setAlpha(1);
+    });
+
+    //przycisk_rzut_gracz2_event
+    this.przycisk_rzut_kostka_gracz2.on("pointerdown", () => {
+      //"wyłączenie" kostki początkowej
+      this.kostka.setAlpha(0);
+      console.log("rzut kostką:");
+
+      //uruchomienie mechanizmu losującego (line 156)
+      let wynik_rzutu = rzucaj();
+      console.log(wynik_rzutu);
+
+      //wyświetlenie wyrzuconego wyniku na kostce (line 115)
+      pokaz_kostke(wynik_rzutu);
+
+      //wyświetlenie pozycji pionka gracza nr 1 po rzucie pod warunkiem, że jego kolej
+      if (
+        this.krok_gracz2_na_planszy + wynik_rzutu < 23 &&
+        kontrolka_ruch_na_planszy === true
+      ) {
+        this.postac2.setPosition(
+          pozycje_pionka_gracza1[this.krok_gracz2_na_planszy + wynik_rzutu][0],
+          pozycje_pionka_gracza1[this.krok_gracz2_na_planszy + wynik_rzutu][1]
+        );
+        this.krok_gracz2_na_planszy =
+          this.krok_gracz2_na_planszy + wynik_rzutu + 1;
+        console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
+      } else {
+        this.postac2.setPosition(860, 510);
+        kontrolka_ruch_na_planszy = false;
+        console.log("wygrałeś!!!");
       }
-      ruch_gracza_nr1 = !ruch_gracza_nr1;
-      ruch_gracza_nr2 = !ruch_gracza_nr2;
-      //console.log(ruch_gracza_nr2);
+
+      this.przycisk_rzut_kostka.setAlpha(1);
+      this.przycisk_rzut_kostka_gracz2.setAlpha(0);
     });
   }
 }

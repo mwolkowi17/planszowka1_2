@@ -1,0 +1,90 @@
+this.przycisk_rzut_kostka.on("pointerdown", () => {
+      //"wyłączenie" kostki początkowej
+      this.kostka.setAlpha(0);
+      console.log("rzut kostką:");
+      //uruchomienie mechanizmu losującego (line 156)
+      let wynik_rzutu = rzucaj();
+      console.log(wynik_rzutu);
+
+      //wyświetlenie wyrzuconego wyniku na kostce (line 115)
+      pokaz_kostke(wynik_rzutu);
+
+      //wyświetlenie pozycji pionka gracza nr 1 po rzucie pod warunkiem, że jego kolej
+      if (ruch_gracza_nr1 === true) {
+        if (
+          this.krok_gracz1_na_planszy + wynik_rzutu < 23 &&
+          kontrolka_ruch_na_planszy === true
+        ) {
+          this.postac1.setPosition(
+            pozycje_pionka_gracza1[
+              this.krok_gracz1_na_planszy + wynik_rzutu
+            ][0],
+            pozycje_pionka_gracza1[this.krok_gracz1_na_planszy + wynik_rzutu][1]
+          );
+          this.krok_gracz1_na_planszy =
+            this.krok_gracz1_na_planszy + wynik_rzutu + 1;
+          console.log("krok na planszy: " + this.krok_gracz1_na_planszy);
+        } else {
+          this.postac1.setPosition(860, 510);
+          kontrolka_ruch_na_planszy = false;
+          console.log("wygrałeś!!!");
+        }
+        // if (localStorage.getItem("player2") === "") {
+        //   RuchKomputera(this.krok_gracz2_na_planszy, this.postac2);
+        // }
+      }
+
+      if (ruch_gracza_nr2 === true) {
+        console.log("Ruch gracza nr2");
+        if (
+          this.krok_gracz2_na_planszy + wynik_rzutu < 23 &&
+          kontrolka_ruch_na_planszy_gracz2 === true
+        ) {
+          this.postac2.setPosition(
+            pozycje_pionka_gracza2[
+              this.krok_gracz2_na_planszy + wynik_rzutu
+            ][0],
+            pozycje_pionka_gracza2[this.krok_gracz2_na_planszy + wynik_rzutu][1]
+          );
+          this.krok_gracz2_na_planszy =
+            this.krok_gracz2_na_planszy + wynik_rzutu + 1;
+          console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
+        } else {
+          this.postac2.setPosition(860, 510);
+          kontrolka_ruch_na_planszy_gracz2 = false;
+          console.log("nr 2 - wygrałeś!!!");
+        }
+      }
+
+      // funkcja realizująca ruch 2 gracza jeżeli gra komputer
+      function RuchKomputera(a, b) {
+        setInterval(() => {
+          if (ruch_gracza_nr2 === true) {
+            console.log("Ruch gracza nr2");
+
+            if (
+              a + wynik_rzutu < 23 &&
+              kontrolka_ruch_na_planszy_gracz2 === true
+            ) {
+              b.setPosition(
+                pozycje_pionka_gracza2[a + wynik_rzutu][0],
+                pozycje_pionka_gracza2[a + wynik_rzutu][1]
+              );
+              a = a + wynik_rzutu + 1;
+              console.log("krok na planszy: " + a);
+            } else {
+              b.setPosition(860, 510);
+              kontrolka_ruch_na_planszy_gracz2 = false;
+              console.log("nr 2 - wygrałeś!!!");
+            }
+          }
+        }, 2000);
+      }
+
+      ruch_gracza_nr1 = !ruch_gracza_nr1;
+      ruch_gracza_nr2 = !ruch_gracza_nr2;
+      //console.log(ruch_gracza_nr2);
+    });
+
+
+    

@@ -28,7 +28,8 @@
       "kostka_wyniki3": { "file": "kostka_wynik3.png", "size": 5624 },
       "kostka_wyniki4": { "file": "kostka_wynik4.png", "size": 4402 },
       "kostka_wyniki5": { "file": "kostka_wynik5.png", "size": 4913 },
-      "kostka_wyniki6": { "file": "kostka_wynik6.png", "size": 4481 }
+      "kostka_wyniki6": { "file": "kostka_wynik6.png", "size": 4481 },
+      "kostka_blank": { "file": "kostka_blank.png", "size": 3212 }
     }
   }
 }
