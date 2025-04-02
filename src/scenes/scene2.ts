@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import { PawnMaps } from "../lib/pawn-maps";
+import { Quests } from "../lib/quests";
 
 export class Scene2 extends Scene {
   przycisk_rzut_kostka: Phaser.GameObjects.Image;
@@ -188,6 +189,9 @@ export class Scene2 extends Scene {
     //flaga true/false pokazująca czy gracz nr 2 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy_gracz2 = true;
 
+    //nowa instancja obiektu Quests
+    const quests = new Quests();
+
     //przycisk_rzut_event
     this.przycisk_rzut_kostka.on("pointerdown", () => {
       //"wyłączenie" kostki początkowej
@@ -221,6 +225,9 @@ export class Scene2 extends Scene {
 
       this.przycisk_rzut_kostka.setAlpha(0);
       this.przycisk_rzut_kostka_gracz2.setAlpha(1);
+
+      //funkcja wyświetlająca quizzy
+      quests.pokaz_zadanie(this.krok_gracz1_na_planszy);
 
       if (localStorage.getItem("player2") === "") {
         this.przycisk_rzut_kostka_gracz2.setAlpha(0);
