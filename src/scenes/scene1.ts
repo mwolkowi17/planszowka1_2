@@ -66,6 +66,10 @@ export class Scene1 extends Scene {
       this.Instruction_Sound_1.stop();
     });
 
+    //ustawianie/resetowanie kroku gracza w localStorage
+    localStorage.setItem("krok_gracza1", "");
+    localStorage.setItem("krok_gracza2", "");
+
     //input section
 
     // function which creates input

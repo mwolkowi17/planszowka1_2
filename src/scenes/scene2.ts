@@ -25,10 +25,23 @@ export class Scene2 extends Scene {
     });
   }
   create(): void {
+    //pozycja startowa gracza nr 1
+    this.krok_gracz1_na_planszy = 0;
+
+    //pozycja startowa gracza nr 2;
+    this.krok_gracz2_na_planszy = 0;
+
+    //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
+    const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
+
+    //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
+    const pozycje_pionka_gracza2 = new PawnMaps().pionek_gracza2;
+
     //adding assets to stage
     this.add.image(640, 360, "plansza_scena2").scale = 0.67;
 
     //przyscisk rzut koską gracz1
+
     this.przycisk_rzut_kostka = this.add
       .image(1153, 435, "button_rzut")
       .setInteractive()
@@ -43,9 +56,36 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka_gracz2.scale = 0.67;
 
     //pionek1
+    // if (localStorage.getItem("krok_gracza1") === "") {
     this.postac1 = this.add.image(100, 130, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
+
+    //powrót z plansz quizz
+    // } else {
+    //   this.postac1 = this.add.image(
+    //     pozycje_pionka_gracza1[this.krok_gracz1_na_planszy][0],
+    //     pozycje_pionka_gracza1[this.krok_gracz1_na_planszy][1],
+    //     "postac1"
+    //   );
+    //   this.postac1.scale = 0.7;
+    //   this.postac1.rotation = Math.PI * 1.2;
+    //   console.log("po powrocie: " + localStorage.getItem("krok_gracza1"));
+    // }
+
+    //  {
+    //   this.postac1 = this.add.image(
+    //     pozycje_pionka_gracza1[
+    //       parseInt(localStorage.getItem("krok_gracza1"))
+    //     ][0],
+    //     pozycje_pionka_gracza1[
+    //       parseInt(localStorage.getItem("krok_gracza1"))
+    //     ][1],
+    //     "postac1"
+    //   );
+    //   this.postac1.scale = 0.7;
+    //   this.postac1.rotation = Math.PI * 1.2;
+    // }
 
     //pionek2
     this.postac2 = this.add.image(110, 180, "postac2");
@@ -159,18 +199,6 @@ export class Scene2 extends Scene {
     myEventPoinerOverOut(this.przycisk_rzut_kostka);
     myEventPoinerOverOut(this.przycisk_rzut_kostka_gracz2);
 
-    //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
-    const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
-
-    //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
-    const pozycje_pionka_gracza2 = new PawnMaps().pionek_gracza2;
-
-    //pozycja startowa gracza nr 1
-    this.krok_gracz1_na_planszy = 0;
-
-    //pozycja startowa gracza nr 2;
-    this.krok_gracz2_na_planszy = 0;
-
     //funkcja zwracająca jedną liczbę - odpwiednik rzutu kostką, główny mechanizm losujący wynik kostki w scenie
 
     function rzucaj(): integer {
@@ -229,6 +257,8 @@ export class Scene2 extends Scene {
       //wyświetlanie quizów w zależności od spełnienia warunków
 
       if (quests.czy_zadanie(this.krok_gracz1_na_planszy)) {
+        // zapisanie kroku gracza 1 w localStorage
+        localStorage.setItem("krok_gracza1", this.krok_gracz1_na_planszy);
         this.scene.start(quests.pokaz_zadanie(this.krok_gracz1_na_planszy));
       }
 
@@ -266,6 +296,14 @@ export class Scene2 extends Scene {
             console.log("nr 2 - wygrałeś!!!");
           }
           this.przycisk_rzut_kostka.setAlpha(1);
+
+          //wyświetlanie quizów w zależności od spełnienia warunków
+
+          if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
+            // zapisanie kroku gracza 2 w localStorage
+            localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
+            this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+          }
         }, 2000);
       }
     });
@@ -307,6 +345,8 @@ export class Scene2 extends Scene {
       //wyświetlanie quizów w zależności od spełnienia warunków
 
       if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
+        // zapisanie kroku gracza 2 w localStorage
+        localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
         this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
       }
     });

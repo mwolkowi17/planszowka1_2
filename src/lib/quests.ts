@@ -28,6 +28,27 @@ export class Quests extends Scene {
     }
     if (krok_na_planszy === 10) {
       return true;
+    }
+    if (krok_na_planszy === 12) {
+      return true;
+    }
+    if (krok_na_planszy === 14) {
+      return true;
+    }
+    if (krok_na_planszy === 16) {
+      return true;
+    }
+    if (krok_na_planszy === 17) {
+      return true;
+    }
+    if (krok_na_planszy === 19) {
+      return true;
+    }
+    if (krok_na_planszy === 21) {
+      return true;
+    }
+    if (krok_na_planszy === 24) {
+      return true;
     } else {
       return false;
     }
@@ -51,6 +72,27 @@ export class Quests extends Scene {
       return this.kolekcja_questow[1];
     }
     if (krok_na_planszy === 10) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 12) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 14) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 16) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 17) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 19) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 21) {
+      return this.kolekcja_questow[1];
+    }
+    if (krok_na_planszy === 24) {
       return this.kolekcja_questow[1];
     }
   }
