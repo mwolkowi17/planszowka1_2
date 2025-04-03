@@ -31,7 +31,7 @@ export class PawnMaps {
     ];
 
     this.pionek_gracza2 = [
-      [150, 180],
+      //[150, 180],
       [220, 210],
       [220, 280],
       [80, 460],

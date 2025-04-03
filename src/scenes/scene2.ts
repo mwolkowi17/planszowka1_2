@@ -56,36 +56,10 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka_gracz2.scale = 0.67;
 
     //pionek1
-    // if (localStorage.getItem("krok_gracza1") === "") {
+
     this.postac1 = this.add.image(100, 130, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
-
-    //powrót z plansz quizz
-    // } else {
-    //   this.postac1 = this.add.image(
-    //     pozycje_pionka_gracza1[this.krok_gracz1_na_planszy][0],
-    //     pozycje_pionka_gracza1[this.krok_gracz1_na_planszy][1],
-    //     "postac1"
-    //   );
-    //   this.postac1.scale = 0.7;
-    //   this.postac1.rotation = Math.PI * 1.2;
-    //   console.log("po powrocie: " + localStorage.getItem("krok_gracza1"));
-    // }
-
-    //  {
-    //   this.postac1 = this.add.image(
-    //     pozycje_pionka_gracza1[
-    //       parseInt(localStorage.getItem("krok_gracza1"))
-    //     ][0],
-    //     pozycje_pionka_gracza1[
-    //       parseInt(localStorage.getItem("krok_gracza1"))
-    //     ][1],
-    //     "postac1"
-    //   );
-    //   this.postac1.scale = 0.7;
-    //   this.postac1.rotation = Math.PI * 1.2;
-    // }
 
     //pionek2
     this.postac2 = this.add.image(110, 180, "postac2");
@@ -257,14 +231,16 @@ export class Scene2 extends Scene {
       //wyświetlanie quizów w zależności od spełnienia warunków
 
       if (quests.czy_zadanie(this.krok_gracz1_na_planszy)) {
-        // zapisanie kroku gracza 1 w localStorage
-        localStorage.setItem("krok_gracza1", this.krok_gracz1_na_planszy);
-        this.scene.start(quests.pokaz_zadanie(this.krok_gracz1_na_planszy));
+        console.log(
+          "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz1_na_planszy)
+        );
       }
 
       if (
-        localStorage.getItem("player2") === "" &&
-        !quests.czy_zadanie(this.krok_gracz1_na_planszy)
+        localStorage.getItem("player2") === ""
+        //tu jest problem, w momencie jak będą faktycznie jakieś quizzy to wtedy trzeba dodać
+        //&&
+        // !quests.czy_zadanie(this.krok_gracz1_na_planszy)
       ) {
         this.przycisk_rzut_kostka_gracz2.setAlpha(0);
 
@@ -300,9 +276,10 @@ export class Scene2 extends Scene {
           //wyświetlanie quizów w zależności od spełnienia warunków
 
           if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
-            // zapisanie kroku gracza 2 w localStorage
-            localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
-            this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+            //this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+            console.log(
+              "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
+            );
           }
         }, 2000);
       }
@@ -346,8 +323,11 @@ export class Scene2 extends Scene {
 
       if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
         // zapisanie kroku gracza 2 w localStorage
-        localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
-        this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+        //localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
+        //this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+        console.log(
+          "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
+        );
       }
     });
   }
