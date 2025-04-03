@@ -226,10 +226,16 @@ export class Scene2 extends Scene {
       this.przycisk_rzut_kostka.setAlpha(0);
       this.przycisk_rzut_kostka_gracz2.setAlpha(1);
 
-      //funkcja wyświetlająca quizzy
-      quests.pokaz_zadanie(this.krok_gracz1_na_planszy);
+      //wyświetlanie quizów w zależności od spełnienia warunków
 
-      if (localStorage.getItem("player2") === "") {
+      if (quests.czy_zadanie(this.krok_gracz1_na_planszy)) {
+        this.scene.start(quests.pokaz_zadanie(this.krok_gracz1_na_planszy));
+      }
+
+      if (
+        localStorage.getItem("player2") === "" &&
+        !quests.czy_zadanie(this.krok_gracz1_na_planszy)
+      ) {
         this.przycisk_rzut_kostka_gracz2.setAlpha(0);
 
         setTimeout(() => {
@@ -297,6 +303,12 @@ export class Scene2 extends Scene {
 
       this.przycisk_rzut_kostka.setAlpha(1);
       this.przycisk_rzut_kostka_gracz2.setAlpha(0);
+
+      //wyświetlanie quizów w zależności od spełnienia warunków
+
+      if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
+        this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+      }
     });
   }
 }
