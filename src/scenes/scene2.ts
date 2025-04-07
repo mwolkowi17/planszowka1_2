@@ -18,6 +18,15 @@ export class Scene2 extends Scene {
   kostka_wynik6: Phaser.GameObjects.Image;
   krok_gracz1_na_planszy: any;
   krok_gracz2_na_planszy: any;
+  plansza_pod_quizz: Phaser.GameObjects.Image;
+  obrazek_quizz: Phaser.GameObjects.Image;
+  text_quizz: Phaser.GameObjects.Image;
+  przycisk_dalej: Phaser.GameObjects.Image;
+  pytanie_quizz1: Phaser.GameObjects.Image;
+  odpowiedz1: Phaser.GameObjects.Image;
+  odpowiedz2: Phaser.GameObjects.Image;
+  odpowiedz3: Phaser.GameObjects.Image;
+  przycisk_sprawdz: Phaser.GameObjects.Image;
 
   constructor() {
     super({
@@ -191,8 +200,30 @@ export class Scene2 extends Scene {
     //flaga true/false pokazująca czy gracz nr 2 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy_gracz2 = true;
 
-    //nowa instancja obiektu Quests
+    //nowa instancja obiektu Quests/Quizz
     const quests = new Quests();
+
+    //ładowanie assetów do quizzów początkowo z przezroczystością (być może do usunięcia bo będzie to w eventach)
+    this.plansza_pod_quizz = this.add
+      .image(513, 356, "plansza_quizz")
+      .setAlpha(1);
+    this.plansza_pod_quizz.scale = 0.67;
+
+    this.obrazek_quizz = this.add.image(253, 343, "palac_kultury1").setAlpha(0);
+    this.obrazek_quizz.scale = 0.67;
+
+    this.text_quizz = this.add.image(657, 343, "palac_tresc1").setAlpha(0);
+    this.text_quizz.scale = 0.67;
+
+    this.przycisk_dalej = this.add
+      .image(777, 557, "button_dalej")
+      .setAlpha(0)
+      .setInteractive();
+    this.przycisk_dalej.scale = 0.45;
+    myEventPoinerOverOut(this.przycisk_dalej);
+
+    this.pytanie_quizz1 = this.add.image(453, 203, "pytanie_quiz1").setAlpha(1);
+    this.pytanie_quizz1.scale = 0.67;
 
     //przycisk_rzut_event
     this.przycisk_rzut_kostka.on("pointerdown", () => {
@@ -234,6 +265,24 @@ export class Scene2 extends Scene {
         console.log(
           "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz1_na_planszy)
         );
+
+        this.plansza_pod_quizz.setAlpha(1);
+        this.obrazek_quizz = this.add.image(
+          253,
+          343,
+          quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[0]
+        );
+        this.obrazek_quizz.scale = 0.67;
+        this.obrazek_quizz.setAlpha(1);
+        this.text_quizz = this.add.image(
+          657,
+          343,
+          quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[1]
+        );
+        this.text_quizz.scale = 0.67;
+        this.text_quizz.setAlpha(1);
+
+        this.przycisk_dalej.setAlpha(1);
       }
 
       if (
@@ -329,6 +378,11 @@ export class Scene2 extends Scene {
           "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
         );
       }
+    });
+
+    //event przycisk dalej
+    this.przycisk_dalej.on("pointerdown", () => {
+      console.log("quizz dalej");
     });
   }
 }
