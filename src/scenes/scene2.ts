@@ -206,7 +206,7 @@ export class Scene2 extends Scene {
     //ładowanie assetów do quizzów początkowo z przezroczystością (być może do usunięcia bo będzie to w eventach)
     this.plansza_pod_quizz = this.add
       .image(513, 356, "plansza_quizz")
-      .setAlpha(1);
+      .setAlpha(0);
     this.plansza_pod_quizz.scale = 0.67;
 
     this.obrazek_quizz = this.add.image(253, 343, "palac_kultury1").setAlpha(0);
@@ -222,8 +222,26 @@ export class Scene2 extends Scene {
     this.przycisk_dalej.scale = 0.45;
     myEventPoinerOverOut(this.przycisk_dalej);
 
-    this.pytanie_quizz1 = this.add.image(453, 203, "pytanie_quiz1").setAlpha(1);
+    this.pytanie_quizz1 = this.add.image(460, 203, "pytanie_quiz1").setAlpha(0);
     this.pytanie_quizz1.scale = 0.67;
+
+    this.odpowiedz1 = this.add.image(460, 250, "odpowiedz1").setAlpha(0);
+    this.odpowiedz1.scale = 0.67;
+
+    this.odpowiedz2 = this.add.image(460, 300, "odpowiedz2").setAlpha(0);
+    this.odpowiedz2.scale = 0.67;
+
+    this.odpowiedz3 = this.add.image(460, 350, "odpowiedz3").setAlpha(0);
+    this.odpowiedz3.scale = 0.67;
+
+    this.przycisk_sprawdz = this.add
+      .image(460, 450, "przycisk_sprawdz")
+      .setInteractive()
+      .setAlpha(0);
+
+    this.przycisk_sprawdz.scale = 0.67;
+
+    myEventPoinerOverOut(this.przycisk_sprawdz);
 
     //przycisk_rzut_event
     this.przycisk_rzut_kostka.on("pointerdown", () => {
@@ -380,9 +398,41 @@ export class Scene2 extends Scene {
       }
     });
 
-    //event przycisk dalej
+    //event przycisk dalej dla gracza1
     this.przycisk_dalej.on("pointerdown", () => {
       console.log("quizz dalej");
+      this.obrazek_quizz.setAlpha(0);
+      this.text_quizz.setAlpha(0);
+      this.przycisk_dalej.setAlpha(0);
+      this.pytanie_quizz1 = this.add
+        .image(460, 203, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[2])
+        .setAlpha(1);
+      this.pytanie_quizz1.scale = 0.67;
+      this.odpowiedz1 = this.add
+        .image(460, 250, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[3])
+        .setAlpha(1);
+      this.odpowiedz1.scale = 0.67;
+
+      this.odpowiedz2 = this.add
+        .image(460, 300, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[4])
+        .setAlpha(1);
+      this.odpowiedz2.scale = 0.67;
+
+      this.odpowiedz3 = this.add
+        .image(460, 350, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[5])
+        .setAlpha(1);
+      this.odpowiedz3.scale = 0.67;
+
+      this.przycisk_sprawdz.setAlpha(1);
+    });
+
+    this.przycisk_sprawdz.on("pointerdown", () => {
+      this.pytanie_quizz1.setAlpha(0);
+      this.odpowiedz1.setAlpha(0);
+      this.odpowiedz2.setAlpha(0);
+      this.odpowiedz3.setAlpha(0);
+      this.przycisk_sprawdz.setAlpha(0);
+      console.log("tutaj pokazuje się wynik");
     });
   }
 }

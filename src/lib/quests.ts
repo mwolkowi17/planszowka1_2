@@ -9,7 +9,14 @@ export class Quests extends Scene {
     super();
     this.kolekcja_questow = ["GameSceneQuest1", "GameSceneQuest2"];
     this.kolekcja_assetów = [
-      ["palac_kultury", "palac_tresc"],
+      [
+        "palac_kultury",
+        "palac_tresc",
+        "pytanie_quiz1",
+        "odpowiedz1",
+        "odpowiedz2",
+        "odpowiedz3",
+      ],
       ["palac_kultury2", "palac_tresc2"],
     ];
   }
