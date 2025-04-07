@@ -428,11 +428,13 @@ export class Scene2 extends Scene {
 
     this.przycisk_sprawdz.on("pointerdown", () => {
       this.pytanie_quizz1.setAlpha(0);
-      this.odpowiedz1.setAlpha(0);
-      this.odpowiedz2.setAlpha(0);
-      this.odpowiedz3.setAlpha(0);
+      this.odpowiedz1.setAlpha(0).setInteractive();
+      this.odpowiedz2.setAlpha(0).setInteractive();
+      this.odpowiedz3.setAlpha(0).setInteractive();
       this.przycisk_sprawdz.setAlpha(0);
       console.log("tutaj pokazuje się wynik");
     });
+
+    //tutaj trzeba dodać do każdego odpowiedz trzeba dodać event
   }
 }
