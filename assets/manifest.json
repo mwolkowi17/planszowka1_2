@@ -37,7 +37,8 @@
       "odpowiedz1": { "file": "odpowiedz1.png", "size": 5925 },
       "odpowiedz2": { "file": "odpowiedz2.png", "size": 6634 },
       "odpowiedz3": { "file": "odpowiedz3.png", "size": 7244 },
-      "przycisk_sprawdz": { "file": "przycisk_sprawdz.png", "size": 9890 }
+      "przycisk_sprawdz": { "file": "przycisk_sprawdz.png", "size": 9890 },
+      "zaznaczenie": { "file": "zaznaczenie1.png", "size": 2460 }
     }
   }
 }
