@@ -338,6 +338,8 @@ export class Scene2 extends Scene {
       //wyświetlanie quizów w zależności od spełnienia warunków metoda pokaz_zadanie ładuje zwraca kolekcję assetów
 
       if (quests.czy_zadanie(this.krok_gracz1_na_planszy)) {
+        //tu sprawdzić!!!!
+        this.przycisk_rzut_kostka_gracz2.setAlpha(0);
         this.plansza_pod_quizz.setAlpha(1);
         this.obrazek_quizz = this.add.image(
           253,
@@ -455,98 +457,99 @@ export class Scene2 extends Scene {
       this.obrazek_quizz.setAlpha(0);
       this.text_quizz.setAlpha(0);
       this.przycisk_dalej.setAlpha(0);
-      this.pytanie_quizz1 = this.add
-        .image(460, 203, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[2])
-        .setAlpha(1);
-      this.pytanie_quizz1.scale = 0.67;
-      this.odpowiedz1 = this.add
-        .image(460, 250, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[3])
-        .setInteractive()
-        .setAlpha(1);
-      this.odpowiedz1.scale = 0.67;
 
-      this.odpowiedz2 = this.add
-        .image(460, 300, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[4])
-        .setAlpha(1)
-        .setInteractive();
-      this.odpowiedz2.scale = 0.67;
+      this.pytanie_quizz1.setAlpha(1);
+      this.pytanie_quizz1.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[2]
+      );
 
-      this.odpowiedz3 = this.add
-        .image(460, 350, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[5])
-        .setAlpha(1)
-        .setInteractive();
-      this.odpowiedz3.scale = 0.67;
+      this.odpowiedz1.setAlpha(1);
+      this.odpowiedz1.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[3]
+      );
+
+      this.odpowiedz2.setAlpha(1);
+      this.odpowiedz2.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[4]
+      );
+
+      // this.odpowiedz3 = this.add
+      //   .image(460, 350, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[5])
+      //   .setAlpha(1)
+      //   .setInteractive();
+      // this.odpowiedz3.scale = 0.67;
+
+      this.odpowiedz3.setAlpha(1);
+      this.odpowiedz3.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[5]
+      );
 
       this.przycisk_sprawdz.setAlpha(1);
+    });
 
-      myEventPoinerOverOut(this.odpowiedz1);
-      myEventPoinerOverOut(this.odpowiedz2);
-      myEventPoinerOverOut(this.odpowiedz3);
+    this.odpowiedz1.on("pointerdown", () => {
+      this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
+      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 1) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
 
-      this.odpowiedz1.on("pointerdown", () => {
-        this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
-        if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 1) {
-          this.ifOdpowiedzPoprawna = true;
-        } else {
-          this.ifOdpowiedzPoprawna = false;
-        }
-        console.log(this.ifOdpowiedzPoprawna);
-      });
+    this.odpowiedz2.on("pointerdown", () => {
+      this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
+      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 2) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
+    this.odpowiedz3.on("pointerdown", () => {
+      this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
+      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 3) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
 
-      this.odpowiedz2.on("pointerdown", () => {
-        this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
-        if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 2) {
-          this.ifOdpowiedzPoprawna = true;
-        } else {
-          this.ifOdpowiedzPoprawna = false;
-        }
-        console.log(this.ifOdpowiedzPoprawna);
-      });
-      this.odpowiedz3.on("pointerdown", () => {
-        this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
-        if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 3) {
-          this.ifOdpowiedzPoprawna = true;
-        } else {
-          this.ifOdpowiedzPoprawna = false;
-        }
-        console.log(this.ifOdpowiedzPoprawna);
-      });
-
-      //sprawdzanie odpwowiedzi
-      this.przycisk_sprawdz.on("pointerdown", () => {
-        this.pytanie_quizz1.setAlpha(0);
-        this.odpowiedz1.setAlpha(0).setInteractive();
-        this.odpowiedz2.setAlpha(0).setInteractive();
-        this.odpowiedz3.setAlpha(0).setInteractive();
-        this.przycisk_sprawdz.setAlpha(0);
-        this.zaznaczenie.setAlpha(0);
-        if (this.ifOdpowiedzPoprawna) {
-          this.plansza_pod_quizz.setAlpha(1);
-          this.odpowiedz_dobra.setAlpha(1);
-          this.odpowiedz_dobra.setTexture(
-            quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[9]
-          );
-          this.dalej_powrot_do_gry.setAlpha(1);
-        } else {
-          this.plansza_pod_quizz.setAlpha(1);
-          this.jeszcze_raz.setAlpha(1);
-          this.jeszcze_raz.setTexture(
-            quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[7]
-          );
-          this.jeszcze_raz_button.setAlpha(1);
-        }
-      });
+    this.przycisk_sprawdz.on("pointerdown", () => {
+      this.pytanie_quizz1.setAlpha(0);
+      this.odpowiedz1.setAlpha(0);
+      this.odpowiedz2.setAlpha(0);
+      this.odpowiedz3.setAlpha(0);
+      this.przycisk_sprawdz.setAlpha(0);
+      this.zaznaczenie.setAlpha(0);
+      if (this.ifOdpowiedzPoprawna) {
+        this.plansza_pod_quizz.setAlpha(1);
+        this.odpowiedz_dobra.setAlpha(1);
+        this.odpowiedz_dobra.setTexture(
+          quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[9]
+        );
+        this.dalej_powrot_do_gry.setAlpha(1);
+      } else {
+        this.plansza_pod_quizz.setAlpha(1);
+        this.jeszcze_raz.setAlpha(1);
+        this.jeszcze_raz.setTexture(
+          quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[7]
+        );
+        this.jeszcze_raz_button.setAlpha(1);
+      }
     });
 
     this.dalej_powrot_do_gry.on("pointerdown", () => {
       this.plansza_pod_quizz.setAlpha(0);
       this.odpowiedz_dobra.setAlpha(0);
       this.dalej_powrot_do_gry.setAlpha(0);
+      this.przycisk_rzut_kostka_gracz2.setAlpha(1);
     });
 
     this.jeszcze_raz_button.on("pointerdown", () => {
-      this.odpowiedz_dobra.setAlpha(0);
-      this.dalej_powrot_do_gry.setAlpha(0);
+      this.jeszcze_raz.setAlpha(0);
+      this.jeszcze_raz_button.setAlpha(0);
       this.odpowiedz1.setAlpha(1);
       this.odpowiedz2.setAlpha(1);
       this.odpowiedz3.setAlpha(1);
