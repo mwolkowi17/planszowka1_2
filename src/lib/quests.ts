@@ -67,7 +67,7 @@ export class Quests extends Scene {
     }
   }
 
-  //funkcja która zwróci klucz zadania do zrobienia
+  //funkcja która zwróci komplet astetów i parametrów rozwiązań do zadania
   pokaz_zadanie(krok_na_planszy: any): any {
     if (krok_na_planszy === 1) {
       return this.kolekcja_assetów[0];

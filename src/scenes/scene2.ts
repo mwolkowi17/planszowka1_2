@@ -442,6 +442,8 @@ export class Scene2 extends Scene {
         .setInteractive();
       this.odpowiedz3.scale = 0.67;
 
+      this.przycisk_sprawdz.setAlpha(1);
+
       myEventPoinerOverOut(this.odpowiedz1);
       myEventPoinerOverOut(this.odpowiedz2);
       myEventPoinerOverOut(this.odpowiedz3);
@@ -456,57 +458,37 @@ export class Scene2 extends Scene {
         console.log(this.ifOdpowiedzPoprawna);
       });
 
-      this.przycisk_sprawdz.setAlpha(1);
+      this.odpowiedz2.on("pointerdown", () => {
+        this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
+        if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 2) {
+          this.ifOdpowiedzPoprawna = true;
+        } else {
+          this.ifOdpowiedzPoprawna = false;
+        }
+        console.log(this.ifOdpowiedzPoprawna);
+      });
+      this.odpowiedz3.on("pointerdown", () => {
+        this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
+        if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 3) {
+          this.ifOdpowiedzPoprawna = true;
+        } else {
+          this.ifOdpowiedzPoprawna = false;
+        }
+        console.log(this.ifOdpowiedzPoprawna);
+      });
+
+      //sprawdzanie odpwowiedzi
+      this.przycisk_sprawdz.on("pointerdown", () => {
+        this.pytanie_quizz1.setAlpha(0);
+        this.odpowiedz1.setAlpha(0).setInteractive();
+        this.odpowiedz2.setAlpha(0).setInteractive();
+        this.odpowiedz3.setAlpha(0).setInteractive();
+        this.przycisk_sprawdz.setAlpha(0);
+        this.zaznaczenie.setAlpha(0);
+        console.log("tutaj pokazuje się wynik");
+      });
     });
 
     //tutaj trzeba dodać do każdego odpowiedz trzeba dodać event
-
-    this.odpowiedz1.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
-      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 1) {
-        this.ifOdpowiedzPoprawna = true;
-      } else {
-        this.ifOdpowiedzPoprawna = false;
-      }
-      console.log(this.ifOdpowiedzPoprawna);
-    });
-    function odpowiedz1Click() {
-      this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
-      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 1) {
-        this.ifOdpowiedzPoprawna = true;
-      } else {
-        this.ifOdpowiedzPoprawna = false;
-      }
-      console.log(this.ifOdpowiedzPoprawna);
-    }
-    this.odpowiedz2.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
-      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 2) {
-        this.ifOdpowiedzPoprawna = true;
-      } else {
-        this.ifOdpowiedzPoprawna = false;
-      }
-      console.log(this.ifOdpowiedzPoprawna);
-    });
-    this.odpowiedz3.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
-      if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 3) {
-        this.ifOdpowiedzPoprawna = true;
-      } else {
-        this.ifOdpowiedzPoprawna = false;
-      }
-      console.log(this.ifOdpowiedzPoprawna);
-    });
-
-    //sprawdzanie odpwowiedzi
-    this.przycisk_sprawdz.on("pointerdown", () => {
-      this.pytanie_quizz1.setAlpha(0);
-      this.odpowiedz1.setAlpha(0).setInteractive();
-      this.odpowiedz2.setAlpha(0).setInteractive();
-      this.odpowiedz3.setAlpha(0).setInteractive();
-      this.przycisk_sprawdz.setAlpha(0);
-      this.zaznaczenie.setAlpha(0);
-      console.log("tutaj pokazuje się wynik");
-    });
   }
 }
