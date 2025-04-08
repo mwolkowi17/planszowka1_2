@@ -38,7 +38,10 @@
       "odpowiedz2": { "file": "odpowiedz2.png", "size": 6634 },
       "odpowiedz3": { "file": "odpowiedz3.png", "size": 7244 },
       "przycisk_sprawdz": { "file": "przycisk_sprawdz.png", "size": 9890 },
-      "zaznaczenie": { "file": "zaznaczenie1.png", "size": 2460 }
+      "zaznaczenie": { "file": "zaznaczenie1.png", "size": 2460 },
+      "jeszcze_raz1": { "file": "jeszcze_raz1.png", "size": 11477 },
+      "jeszcze_raz_button": { "file": "jeszcze_raz_button.png", "size": 16086 },
+      "odpowiedz_dobra1": { "file": "odpowiedz_dobra1.png", "size": 27493 }
     }
   }
 }

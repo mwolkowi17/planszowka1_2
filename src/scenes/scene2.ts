@@ -29,6 +29,10 @@ export class Scene2 extends Scene {
   przycisk_sprawdz: Phaser.GameObjects.Image;
   zaznaczenie: Phaser.GameObjects.Image;
   ifOdpowiedzPoprawna: boolean;
+  jeszcze_raz: Phaser.GameObjects.Image;
+  jeszcze_raz_button: Phaser.GameObjects.Image;
+  odpowiedz_dobra: Phaser.GameObjects.Image;
+  dalej_powrot_do_gry: Phaser.GameObjects.Image;
 
   constructor() {
     super({
@@ -254,10 +258,31 @@ export class Scene2 extends Scene {
 
     this.przycisk_sprawdz.scale = 0.67;
 
+    this.jeszcze_raz = this.add.image(460, 203, "jeszcze_raz1").setAlpha(0);
+
+    this.jeszcze_raz_button = this.add
+      .image(477, 357, "jeszcze_raz_button")
+      .setAlpha(0)
+      .setInteractive();
+
+    this.odpowiedz_dobra = this.add
+      .image(460, 203, "odpowiedz_dobra1")
+      .setAlpha(0);
+    this.odpowiedz_dobra.scale = 0.67;
+
+    this.dalej_powrot_do_gry = this.add
+      .image(477, 457, "button_dalej")
+      .setAlpha(0)
+      .setInteractive();
+
+    this.dalej_powrot_do_gry.scale = 0.67;
+
     myEventPoinerOverOut(this.przycisk_sprawdz);
     myEventPoinerOverOut(this.odpowiedz1);
     myEventPoinerOverOut(this.odpowiedz2);
     myEventPoinerOverOut(this.odpowiedz3);
+    myEventPoinerOverOut(this.jeszcze_raz_button);
+    myEventPoinerOverOut(this.dalej_powrot_do_gry);
 
     //przycisk_rzut_event
     this.przycisk_rzut_kostka.on("pointerdown", () => {
