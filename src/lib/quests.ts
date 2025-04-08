@@ -17,6 +17,9 @@ export class Quests extends Scene {
         "odpowiedz2",
         "odpowiedz3",
         1,
+        "jeszcze_raz1",
+        "jeszcze_raz_button",
+        "odpowiedz_dobra1",
       ],
       ["palac_kultury2", "palac_tresc2"],
     ];

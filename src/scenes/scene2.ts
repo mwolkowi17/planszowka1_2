@@ -22,6 +22,7 @@ export class Scene2 extends Scene {
   obrazek_quizz: Phaser.GameObjects.Image;
   text_quizz: Phaser.GameObjects.Image;
   przycisk_dalej: Phaser.GameObjects.Image;
+  przycisk_dalej_gracz2: Phaser.GameObjects.Image;
   pytanie_quizz1: Phaser.GameObjects.Image;
   odpowiedz1: Phaser.GameObjects.Image;
   odpowiedz2: Phaser.GameObjects.Image;
@@ -40,11 +41,13 @@ export class Scene2 extends Scene {
     });
   }
   create(): void {
+    //===============================================================
     //pozycja startowa gracza nr 1
     this.krok_gracz1_na_planszy = 0;
 
     //pozycja startowa gracza nr 2;
     this.krok_gracz2_na_planszy = 0;
+    //===============================================================
 
     //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
     const pozycje_pionka_gracza1 = new PawnMaps().pionek_gracza1;
@@ -52,11 +55,12 @@ export class Scene2 extends Scene {
     //zdefinowanie pozycji (mapy wszystkich pozycji) gracza nr 1
     const pozycje_pionka_gracza2 = new PawnMaps().pionek_gracza2;
 
-    //adding assets to stage
+    //===============================================================
+
+    //ADDING ASSETS TO SCENE
     this.add.image(640, 360, "plansza_scena2").scale = 0.67;
 
     //przyscisk rzut koską gracz1
-
     this.przycisk_rzut_kostka = this.add
       .image(1153, 435, "button_rzut")
       .setInteractive()
@@ -71,7 +75,6 @@ export class Scene2 extends Scene {
     this.przycisk_rzut_kostka_gracz2.scale = 0.67;
 
     //pionek1
-
     this.postac1 = this.add.image(100, 130, "postac1");
     this.postac1.scale = 0.7;
     this.postac1.rotation = Math.PI * 1.2;
@@ -83,12 +86,12 @@ export class Scene2 extends Scene {
     this.postac2.rotation = Math.PI * 1.2;
 
     //"startowy" widok kostki
-    this.kostka = this.add.image(1153, 534, "kostka_blank").setAlpha();
+    this.kostka = this.add.image(1153, 534, "kostka_blank").setAlpha(1);
     this.kostka.scale = 0.7;
 
     //imiona graczy
 
-    //jeśli pole poprzedniej scenie jest puste to poniższy conditional wpisuje "Komputer" jako gracza
+    //jeśli pole poprzedniej scenie jest puste to poniższy conditional wpisuje "Komputer" jako drugiego gracza
     let nameA = localStorage.getItem("player2");
     if (localStorage.getItem("player2") === "") {
       nameA = "Komputer";
@@ -196,18 +199,22 @@ export class Scene2 extends Scene {
       return wynik;
     }
 
-    //flagi true/false definiujące który z graczy przeprowadza ruch
+    //flagi true/false definiujące który z graczy przeprowadza ruch - tego na razie nie używam, być może do wywalenia!!!
     let ruch_gracza_nr1 = true;
     let ruch_gracza_nr2 = false;
 
+    //==================================================================================================
     //flaga true/false pokazująca czy gracz nr 1 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy = true;
 
     //flaga true/false pokazująca czy gracz nr 2 nie przeszedł całej planszy, wartość falsce wskazuje zakończenie ruchu na planszy
     let kontrolka_ruch_na_planszy_gracz2 = true;
+    //==================================================================================================
 
     //nowa instancja obiektu Quests/Quizz
     const quests = new Quests();
+
+    //=============ASETY DO QUIZZÓW=====================================================================
 
     //ładowanie assetów do quizzów początkowo z przezroczystością (być może do usunięcia bo będzie to w eventach)
     this.plansza_pod_quizz = this.add
@@ -227,6 +234,13 @@ export class Scene2 extends Scene {
       .setInteractive();
     this.przycisk_dalej.scale = 0.45;
     myEventPoinerOverOut(this.przycisk_dalej);
+
+    this.przycisk_dalej_gracz2 = this.add
+      .image(777, 557, "button_dalej")
+      .setAlpha(0)
+      .setInteractive();
+    this.przycisk_dalej_gracz2.scale = 0.45;
+    myEventPoinerOverOut(this.przycisk_dalej_gracz2);
 
     this.pytanie_quizz1 = this.add.image(460, 203, "pytanie_quiz1").setAlpha(0);
     this.pytanie_quizz1.scale = 0.67;
@@ -275,8 +289,8 @@ export class Scene2 extends Scene {
       .setAlpha(0)
       .setInteractive();
 
+    //let ateks = "gra1";
     this.dalej_powrot_do_gry.scale = 0.67;
-
     myEventPoinerOverOut(this.przycisk_sprawdz);
     myEventPoinerOverOut(this.odpowiedz1);
     myEventPoinerOverOut(this.odpowiedz2);
@@ -284,17 +298,20 @@ export class Scene2 extends Scene {
     myEventPoinerOverOut(this.jeszcze_raz_button);
     myEventPoinerOverOut(this.dalej_powrot_do_gry);
 
-    //przycisk_rzut_event
+    //============================================================================================================================
+
+    //EVENTY
+    //przycisk_rzut_event - przycisk_rzut_kostka obsługuje GRACZA NR 1
     this.przycisk_rzut_kostka.on("pointerdown", () => {
       //"wyłączenie" kostki początkowej
       this.kostka.setAlpha(0);
       console.log("rzut kostką:");
 
-      //uruchomienie mechanizmu losującego (line 156)
+      //uruchomienie mechanizmu losującego (line 195)
       let wynik_rzutu = rzucaj();
       console.log(wynik_rzutu);
 
-      //wyświetlenie wyrzuconego wyniku na kostce (line 115)
+      //wyświetlenie wyrzuconego wyniku na kostce (line 159)
       pokaz_kostke(wynik_rzutu);
 
       //wyświetlenie pozycji pionka gracza nr 1 po rzucie pod warunkiem, że jego kolej
@@ -318,13 +335,9 @@ export class Scene2 extends Scene {
       this.przycisk_rzut_kostka.setAlpha(0);
       this.przycisk_rzut_kostka_gracz2.setAlpha(1);
 
-      //wyświetlanie quizów w zależności od spełnienia warunków
+      //wyświetlanie quizów w zależności od spełnienia warunków metoda pokaz_zadanie ładuje zwraca kolekcję assetów
 
       if (quests.czy_zadanie(this.krok_gracz1_na_planszy)) {
-        console.log(
-          "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz1_na_planszy)
-        );
-
         this.plansza_pod_quizz.setAlpha(1);
         this.obrazek_quizz = this.add.image(
           253,
@@ -430,9 +443,6 @@ export class Scene2 extends Scene {
       //wyświetlanie quizów w zależności od spełnienia warunków
 
       if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
-        // zapisanie kroku gracza 2 w localStorage
-        //localStorage.setItem("krok_gracza2", this.krok_gracz2_na_planszy);
-        //this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
         console.log(
           "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
         );
@@ -510,10 +520,37 @@ export class Scene2 extends Scene {
         this.odpowiedz3.setAlpha(0).setInteractive();
         this.przycisk_sprawdz.setAlpha(0);
         this.zaznaczenie.setAlpha(0);
-        console.log("tutaj pokazuje się wynik");
+        if (this.ifOdpowiedzPoprawna) {
+          this.plansza_pod_quizz.setAlpha(1);
+          this.odpowiedz_dobra.setAlpha(1);
+          this.odpowiedz_dobra.setTexture(
+            quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[9]
+          );
+          this.dalej_powrot_do_gry.setAlpha(1);
+        } else {
+          this.plansza_pod_quizz.setAlpha(1);
+          this.jeszcze_raz.setAlpha(1);
+          this.jeszcze_raz.setTexture(
+            quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[7]
+          );
+          this.jeszcze_raz_button.setAlpha(1);
+        }
       });
     });
 
-    //tutaj trzeba dodać do każdego odpowiedz trzeba dodać event
+    this.dalej_powrot_do_gry.on("pointerdown", () => {
+      this.plansza_pod_quizz.setAlpha(0);
+      this.odpowiedz_dobra.setAlpha(0);
+      this.dalej_powrot_do_gry.setAlpha(0);
+    });
+
+    this.jeszcze_raz_button.on("pointerdown", () => {
+      this.odpowiedz_dobra.setAlpha(0);
+      this.dalej_powrot_do_gry.setAlpha(0);
+      this.odpowiedz1.setAlpha(1);
+      this.odpowiedz2.setAlpha(1);
+      this.odpowiedz3.setAlpha(1);
+      this.przycisk_sprawdz.setAlpha(1);
+    });
   }
 }
