@@ -27,13 +27,19 @@ export class Scene2 extends Scene {
   odpowiedz1: Phaser.GameObjects.Image;
   odpowiedz2: Phaser.GameObjects.Image;
   odpowiedz3: Phaser.GameObjects.Image;
+  odpowiedz1_gracz2: Phaser.GameObjects.Image;
+  odpowiedz2_gracz2: Phaser.GameObjects.Image;
+  odpowiedz3_gracz2: Phaser.GameObjects.Image;
   przycisk_sprawdz: Phaser.GameObjects.Image;
+  przycisk_sprawdz_gracz2: Phaser.GameObjects.Image;
   zaznaczenie: Phaser.GameObjects.Image;
   ifOdpowiedzPoprawna: boolean;
   jeszcze_raz: Phaser.GameObjects.Image;
   jeszcze_raz_button: Phaser.GameObjects.Image;
+  jeszcze_raz_button_gracz2: Phaser.GameObjects.Image;
   odpowiedz_dobra: Phaser.GameObjects.Image;
   dalej_powrot_do_gry: Phaser.GameObjects.Image;
+  dalej_powrot_do_gry_gracz2: Phaser.GameObjects.Image;
 
   constructor() {
     super({
@@ -263,6 +269,24 @@ export class Scene2 extends Scene {
       .setInteractive();
     this.odpowiedz3.scale = 0.67;
 
+    this.odpowiedz1_gracz2 = this.add
+      .image(460, 250, "odpowiedz1")
+      .setAlpha(0)
+      .setInteractive();
+    this.odpowiedz1_gracz2.scale = 0.67;
+
+    this.odpowiedz2_gracz2 = this.add
+      .image(460, 300, "odpowiedz2")
+      .setAlpha(0)
+      .setInteractive();
+    this.odpowiedz2_gracz2.scale = 0.67;
+
+    this.odpowiedz3_gracz2 = this.add
+      .image(460, 350, "odpowiedz3")
+      .setAlpha(0)
+      .setInteractive();
+    this.odpowiedz3_gracz2.scale = 0.67;
+
     this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(0);
 
     this.przycisk_sprawdz = this.add
@@ -272,9 +296,21 @@ export class Scene2 extends Scene {
 
     this.przycisk_sprawdz.scale = 0.67;
 
+    this.przycisk_sprawdz_gracz2 = this.add
+      .image(460, 450, "przycisk_sprawdz")
+      .setInteractive()
+      .setAlpha(0);
+
+    this.przycisk_sprawdz_gracz2.scale = 0.67;
+
     this.jeszcze_raz = this.add.image(460, 203, "jeszcze_raz1").setAlpha(0);
 
     this.jeszcze_raz_button = this.add
+      .image(477, 357, "jeszcze_raz_button")
+      .setAlpha(0)
+      .setInteractive();
+
+    this.jeszcze_raz_button_gracz2 = this.add
       .image(477, 357, "jeszcze_raz_button")
       .setAlpha(0)
       .setInteractive();
@@ -289,6 +325,11 @@ export class Scene2 extends Scene {
       .setAlpha(0)
       .setInteractive();
 
+    this.dalej_powrot_do_gry_gracz2 = this.add
+      .image(477, 457, "button_dalej")
+      .setAlpha(0)
+      .setInteractive();
+
     //let ateks = "gra1";
     this.dalej_powrot_do_gry.scale = 0.67;
     myEventPoinerOverOut(this.przycisk_sprawdz);
@@ -297,6 +338,10 @@ export class Scene2 extends Scene {
     myEventPoinerOverOut(this.odpowiedz3);
     myEventPoinerOverOut(this.jeszcze_raz_button);
     myEventPoinerOverOut(this.dalej_powrot_do_gry);
+    myEventPoinerOverOut(this.przycisk_sprawdz_gracz2);
+    myEventPoinerOverOut(this.odpowiedz1_gracz2);
+    myEventPoinerOverOut(this.odpowiedz2_gracz2);
+    myEventPoinerOverOut(this.odpowiedz3_gracz2);
 
     //============================================================================================================================
 
@@ -447,6 +492,25 @@ export class Scene2 extends Scene {
         console.log(
           "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
         );
+
+        this.przycisk_rzut_kostka.setAlpha(0);
+        this.plansza_pod_quizz.setAlpha(1);
+        this.obrazek_quizz = this.add.image(
+          253,
+          343,
+          quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[0]
+        );
+        this.obrazek_quizz.scale = 0.67;
+        this.obrazek_quizz.setAlpha(1);
+        this.text_quizz = this.add.image(
+          657,
+          343,
+          quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[1]
+        );
+        this.text_quizz.scale = 0.67;
+        this.text_quizz.setAlpha(1);
+
+        this.przycisk_dalej_gracz2.setAlpha(1);
       }
     });
 
@@ -471,12 +535,6 @@ export class Scene2 extends Scene {
       this.odpowiedz2.setTexture(
         quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[4]
       );
-
-      // this.odpowiedz3 = this.add
-      //   .image(460, 350, quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[5])
-      //   .setAlpha(1)
-      //   .setInteractive();
-      // this.odpowiedz3.scale = 0.67;
 
       this.odpowiedz3.setAlpha(1);
       this.odpowiedz3.setTexture(
@@ -603,6 +661,114 @@ export class Scene2 extends Scene {
       this.odpowiedz2.setAlpha(1);
       this.odpowiedz3.setAlpha(1);
       this.przycisk_sprawdz.setAlpha(1);
+    });
+
+    //set przycisków dot. quizzów dla gracz nr2 (na razie robocze rozwiązanie)
+
+    this.przycisk_dalej_gracz2.on("pointerdown", () => {
+      console.log("quizz dalej");
+      this.obrazek_quizz.setAlpha(0);
+      this.text_quizz.setAlpha(0);
+      this.przycisk_dalej_gracz2.setAlpha(0);
+
+      this.pytanie_quizz1.setAlpha(1);
+      this.pytanie_quizz1.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[2]
+      );
+
+      this.odpowiedz1_gracz2.setAlpha(1);
+      this.odpowiedz1_gracz2.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[3]
+      );
+
+      this.odpowiedz2_gracz2.setAlpha(1);
+      this.odpowiedz2_gracz2.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[4]
+      );
+
+      this.odpowiedz3_gracz2.setAlpha(1);
+      this.odpowiedz3_gracz2.setTexture(
+        quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[5]
+      );
+
+      this.przycisk_sprawdz_gracz2.setAlpha(1);
+    });
+
+    this.odpowiedz1_gracz2.on("pointerdown", () => {
+      //this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(245);
+      if (quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[6] === 1) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
+
+    this.odpowiedz2_gracz2.on("pointerdown", () => {
+      //this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(295);
+      if (quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[6] === 2) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
+    this.odpowiedz3_gracz2.on("pointerdown", () => {
+      //this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(345);
+      if (quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[6] === 3) {
+        this.ifOdpowiedzPoprawna = true;
+      } else {
+        this.ifOdpowiedzPoprawna = false;
+      }
+      console.log(this.ifOdpowiedzPoprawna);
+    });
+
+    this.przycisk_sprawdz_gracz2.on("pointerdown", () => {
+      this.pytanie_quizz1.setAlpha(0);
+      this.odpowiedz1_gracz2.setAlpha(0);
+      this.odpowiedz2_gracz2.setAlpha(0);
+      this.odpowiedz3_gracz2.setAlpha(0);
+      this.przycisk_sprawdz_gracz2.setAlpha(0);
+      this.zaznaczenie.setAlpha(0);
+      if (this.ifOdpowiedzPoprawna) {
+        this.plansza_pod_quizz.setAlpha(1);
+        this.odpowiedz_dobra.setAlpha(1);
+        this.odpowiedz_dobra.setTexture(
+          quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[9]
+        );
+        this.dalej_powrot_do_gry_gracz2.setAlpha(1);
+      } else {
+        this.plansza_pod_quizz.setAlpha(1);
+        this.jeszcze_raz.setAlpha(1);
+        this.jeszcze_raz.setTexture(
+          quests.pokaz_zadanie(this.krok_gracz2_na_planszy)[7]
+        );
+        this.jeszcze_raz_button_gracz2.setAlpha(1);
+      }
+    });
+
+    this.jeszcze_raz_button_gracz2.on("pointerdown", () => {
+      this.jeszcze_raz.setAlpha(0);
+      this.jeszcze_raz_button_gracz2.setAlpha(0);
+      this.odpowiedz1_gracz2.setAlpha(1);
+      this.odpowiedz2_gracz2.setAlpha(1);
+      this.odpowiedz3_gracz2.setAlpha(1);
+      this.przycisk_sprawdz_gracz2.setAlpha(1);
+    });
+
+    this.dalej_powrot_do_gry_gracz2.on("pointerdown", () => {
+      this.plansza_pod_quizz.setAlpha(0);
+      this.odpowiedz_dobra.setAlpha(0);
+      this.dalej_powrot_do_gry_gracz2.setAlpha(0);
+      this.przycisk_rzut_kostka.setAlpha(1);
+
+      this.przycisk_rzut_kostka_gracz2.setAlpha(0);
     });
   }
 }
