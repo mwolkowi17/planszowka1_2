@@ -360,10 +360,9 @@ export class Scene2 extends Scene {
       }
 
       if (
-        localStorage.getItem("player2") === ""
-        //tu jest problem, w momencie jak będą faktycznie jakieś quizzy to wtedy trzeba dodać
-        //&&
-        // !quests.czy_zadanie(this.krok_gracz1_na_planszy)
+        localStorage.getItem("player2") === "" &&
+        !quests.czy_zadanie(this.krok_gracz1_na_planszy)
+        //tu jest problem, potrzeba warunku kiedy dla gracza 1 wypada quizz i wtedy nie ma ruchu gracza komputera
       ) {
         this.przycisk_rzut_kostka_gracz2.setAlpha(0);
 
@@ -488,7 +487,9 @@ export class Scene2 extends Scene {
     });
 
     this.odpowiedz1.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
+      //this.zaznaczenie = this.add.image(193, 245, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(245);
       if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 1) {
         this.ifOdpowiedzPoprawna = true;
       } else {
@@ -498,7 +499,9 @@ export class Scene2 extends Scene {
     });
 
     this.odpowiedz2.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
+      //this.zaznaczenie = this.add.image(193, 295, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(295);
       if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 2) {
         this.ifOdpowiedzPoprawna = true;
       } else {
@@ -507,7 +510,9 @@ export class Scene2 extends Scene {
       console.log(this.ifOdpowiedzPoprawna);
     });
     this.odpowiedz3.on("pointerdown", () => {
-      this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
+      //this.zaznaczenie = this.add.image(193, 345, "zaznaczenie").setAlpha(1);
+      this.zaznaczenie.setAlpha(1);
+      this.zaznaczenie.setY(345);
       if (quests.pokaz_zadanie(this.krok_gracz1_na_planszy)[6] === 3) {
         this.ifOdpowiedzPoprawna = true;
       } else {
@@ -545,6 +550,50 @@ export class Scene2 extends Scene {
       this.odpowiedz_dobra.setAlpha(0);
       this.dalej_powrot_do_gry.setAlpha(0);
       this.przycisk_rzut_kostka_gracz2.setAlpha(1);
+
+      this.przycisk_rzut_kostka.setAlpha(0);
+      //rzut kmputea po quizzie
+      if (localStorage.getItem("player2") === "") {
+        //do sprawdzenia bo tu niejaki dubluję zmienną "wynik rzutu"
+        this.przycisk_rzut_kostka_gracz2.setAlpha(0);
+        const wynik_rzutu_po_quizie = rzucaj();
+        setTimeout(() => {
+          console.log("Ruch gracza nr2");
+
+          pokaz_kostke(wynik_rzutu_po_quizie);
+
+          if (
+            this.krok_gracz2_na_planszy + wynik_rzutu_po_quizie < 23 &&
+            kontrolka_ruch_na_planszy_gracz2 === true
+          ) {
+            this.postac2.setPosition(
+              pozycje_pionka_gracza2[
+                this.krok_gracz2_na_planszy + wynik_rzutu_po_quizie
+              ][0],
+              pozycje_pionka_gracza2[
+                this.krok_gracz2_na_planszy + wynik_rzutu_po_quizie
+              ][1]
+            );
+            this.krok_gracz2_na_planszy =
+              this.krok_gracz2_na_planszy + wynik_rzutu_po_quizie + 1;
+            console.log("krok na planszy: " + this.krok_gracz2_na_planszy);
+          } else {
+            this.postac2.setPosition(860, 510);
+            kontrolka_ruch_na_planszy_gracz2 = false;
+            console.log("nr 2 - wygrałeś!!!");
+          }
+          this.przycisk_rzut_kostka.setAlpha(1);
+
+          //wyświetlanie quizów w zależności od spełnienia warunków
+
+          if (quests.czy_zadanie(this.krok_gracz2_na_planszy)) {
+            //this.scene.start(quests.pokaz_zadanie(this.krok_gracz2_na_planszy));
+            console.log(
+              "quiz nr: " + quests.pokaz_zadanie(this.krok_gracz2_na_planszy)
+            );
+          }
+        }, 2000);
+      }
     });
 
     this.jeszcze_raz_button.on("pointerdown", () => {
